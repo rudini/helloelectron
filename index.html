@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hellp Electron</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+
+    We are using node <span id="nodeVersion"></span>, 
+    chrome <span id="chromeVersion"></span>, 
+    electron <span id="electronVersion"></span>.
+
+    <script>
+        document.getElementById('nodeVersion').textContent = process.versions.node;
+        document.getElementById('chromeVersion').textContent = process.versions.chrome;
+        document.getElementById('electronVersion').textContent = process.versions.electron;
+
+        const { ipcRenderer } = require('electron');
+
+        document.getElementById('electronVersion').addEventListener('click', () => {
+            ipcRenderer.send('start');
+        });
+
+        ipcRenderer.on('finish', function (sender, data) {
+            alert('finish ' + data);
+        });
+
+    </script>
+</body>
+</html>
